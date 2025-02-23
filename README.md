@@ -68,7 +68,7 @@ Example:
 ```json
 {
   "username": "admin",
-  "password": "admin123"
+  "password": "admin@123"
 }
 ```
 
