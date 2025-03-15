@@ -34,5 +34,16 @@ namespace EmloyeeDashboard.Controllers
             await _context.SaveChangesAsync();
             return Ok(new { message = "Employee updated successfully" });
         }
+
+        [HttpPost("AddEmployee")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> AddEmployee([FromBody] Employee newEmployee)
+        {
+            var employee = _context.Employees.FirstOrDefault(x => x.Name == newEmployee.Name);
+            if (employee != null) return Conflict(new { message = "Employee already exists" });
+            _context.Employees.Add(new Employee { Name = newEmployee.Name });
+            await _context.SaveChangesAsync();
+            return Ok(new { message = "Employee added successfully" });
+        }
     }
 }
